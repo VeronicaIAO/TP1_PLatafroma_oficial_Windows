@@ -22,7 +22,6 @@ public class Player3 : MonoBehaviour
 
     public CharacterController controller;
     public Transform cam;
-  //public FolllowCamera3D cam;
     float currentVelocity; 
     float smoothTime = 0.1f;
 
@@ -48,9 +47,13 @@ public class Player3 : MonoBehaviour
         // Visualización en el editor (Scene view)
         Debug.DrawRay(origin, Vector3.down * rayLength, isTouchingGround ? Color.green : Color.red);
     }
+    
+
 
     void Update()
     {
+        float targetAngle = Mathf.Atan2(moveInput.x, moveInput.z)*Mathf.Rad2Deg+ cam.localEulerAngles.y;
+        float angle = Mathf.SmoothDampAngle(transform.localEulerAngles.y, targetAngle, ref currentVelocity, smoothTime);
         CheckGround();
 
         // --- Lectura de input (siempre en Update) ---
@@ -58,20 +61,33 @@ public class Player3 : MonoBehaviour
 
         if (Keyboard.current.wKey.IsPressed()) v -= 1f;   // adelante
         if (Keyboard.current.sKey.IsPressed()) v += 1f;   // atrás
-        if (Keyboard.current.dKey.IsPressed()) h += 1f;   // gira a la derecha
+        if (Keyboard.current.aKey.IsPressed()) h += 1f; 
         if (Keyboard.current.aKey.IsPressed()) h -= 1f;   // gira a la izquierda
 
-        moveInput = new Vector3 (h, v, 0);
+        moveInput = new Vector3 (v, 0, h);
         transform.position +=  moveInput;
 
-        if (moveInput.magnitude >= 0f)
+        if (Keyboard.current.dKey.IsPressed())
+        {
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * moveInput;
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            controller.Move(moveDir*speed*Time.deltaTime);
+        }
+        
+        if (Keyboard.current.aKey.IsPressed())
+        {
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * (- moveInput);
+            transform.rotation = Quaternion.Euler(0f,-angle, 0f);
+            controller.Move(moveDir*speed*Time.deltaTime);
+        }
+ /*
         {
             float targetAngle = Mathf.Atan2(moveInput.x, moveInput .z)*Mathf.Rad2Deg+ cam.localEulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.localEulerAngles.y, targetAngle, ref currentVelocity, smoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
-            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * moveInput;
             controller.Move(moveDir*speed*Time.deltaTime);
-        }
+        } */
 
         if (Keyboard.current.spaceKey.IsPressed() && isTouchingGround)
         {
@@ -80,7 +96,7 @@ public class Player3 : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+  /*void FixedUpdate()
     {
         // --- Rotación con A/D: gira el propio cuerpo del jugador ---
         float turnAmount = moveInput.x * turnSpeed * Time.fixedDeltaTime;
@@ -92,6 +108,6 @@ public class Player3 : MonoBehaviour
 
         // Mantiene la velocidad vertical actual (gravedad, salto) y solo controla X/Z
         rb.linearVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z);
-    }
+    } */
 }
 
