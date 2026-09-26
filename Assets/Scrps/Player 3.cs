@@ -61,7 +61,7 @@ public class Player3 : MonoBehaviour
         if (moveInput.magnitude >= 0f)
         {
             float targetAngle = Mathf.Atan2(moveInput.x, moveInput .z)*Mathf.Rad2Deg;//+localEulerAngles.y;
-          //float angle = Mathf.SmoothDampAngle(transform.localEulerAngles.y, targetAngle, ref currentVelocity, smoothTime);
+            float angle = Mathf.SmoothDampAngle(transform.localEulerAngles.y, targetAngle, ref currentVelocity, smoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDir*speed*Time.deltaTime);
