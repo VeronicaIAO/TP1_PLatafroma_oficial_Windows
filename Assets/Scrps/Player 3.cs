@@ -18,7 +18,13 @@ public class Player3 : MonoBehaviour
 
     Rigidbody rb;
     CapsuleCollider capsule;
-    Vector2 moveInput; // guarda el input leído en Update, se aplica en FixedUpdate
+    Vector3 moveInput; // guarda el input leído en Update, se aplica en FixedUpdate
+
+    public CharacterController controller;
+    public Transform cam;
+  //public FolllowCamera3D cam;
+    float currentVelocity; 
+    float smoothTime = 0.1f;
 
     void Start()
     {
@@ -55,12 +61,12 @@ public class Player3 : MonoBehaviour
         if (Keyboard.current.dKey.IsPressed()) h += 1f;   // gira a la derecha
         if (Keyboard.current.aKey.IsPressed()) h -= 1f;   // gira a la izquierda
 
-        moveInput = new Vector3(h, v, 0 );
-         transform.position += 
-         ;
+        moveInput = new Vector3 (h, v, 0);
+        transform.position +=  moveInput;
+
         if (moveInput.magnitude >= 0f)
         {
-            float targetAngle = Mathf.Atan2(moveInput.x, moveInput .z)*Mathf.Rad2Deg;//+localEulerAngles.y;
+            float targetAngle = Mathf.Atan2(moveInput.x, moveInput .z)*Mathf.Rad2Deg+ cam.localEulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.localEulerAngles.y, targetAngle, ref currentVelocity, smoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
@@ -89,19 +95,3 @@ public class Player3 : MonoBehaviour
     }
 }
 
-
-        /*Vector3 
-         = new Vector3 (vertical * Time.deltaTime, 0, horizontal * Time.deltaTime);
-        transform.position += 
-        ;
-        if (
-        .magnitude >= 0f)
-        {
-            float targetAngle = Mathf.Atan2(
-            .x, 
-            .z)*Mathf.Rad2Deg;//+localEulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.localEulerAngles.y, targetAngle, ref currentVelocity, smoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            controller.Move(moveDir*speed*Time.deltaTime);
-        }*/
