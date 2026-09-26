@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 public class Player3 : MonoBehaviour
 {
     public float speed = 10f;
+    [Tooltip("Velocidad de giro con A/D, en grados por segundo")]
+    public float turnSpeed = 150f;
     public Vector3 jump;
     public float jumpForce = 1.0f;
     public bool isTouchingGround = true;
@@ -24,8 +26,8 @@ public class Player3 : MonoBehaviour
         capsule = GetComponent<CapsuleCollider>();
         jump = new Vector3(0.0f, 1.0f, 0.0f);
 
-        // Evita que la física rote el cuerpo al chocar (opcional pero recomendable)
-        rb.freezeRotation = true;
+        // Evita que la física haga tambalear al personaje al chocar, pero deja libre el eje Y para poder girar con A/D
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
     }
 
     void CheckGround()
@@ -50,10 +52,20 @@ public class Player3 : MonoBehaviour
 
         if (Keyboard.current.wKey.IsPressed()) v -= 1f;   // adelante
         if (Keyboard.current.sKey.IsPressed()) v += 1f;   // atrás
-        if (Keyboard.current.dKey.IsPressed()) h += 1f;   // derecha
-        if (Keyboard.current.aKey.IsPressed()) h -= 1f;   // izquierda
+        if (Keyboard.current.dKey.IsPressed()) h += 1f;   // gira a la derecha
+        if (Keyboard.current.aKey.IsPressed()) h -= 1f;   // gira a la izquierda
 
-        moveInput = new Vector2(h, v);
+        moveInput = new Vector3(h, v, 0 );
+         transform.position += 
+         ;
+        if (moveInput.magnitude >= 0f)
+        {
+            float targetAngle = Mathf.Atan2(moveInput.x, moveInput .z)*Mathf.Rad2Deg;//+localEulerAngles.y;
+          //float angle = Mathf.SmoothDampAngle(transform.localEulerAngles.y, targetAngle, ref currentVelocity, smoothTime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            controller.Move(moveDir*speed*Time.deltaTime);
+        }
 
         if (Keyboard.current.spaceKey.IsPressed() && isTouchingGround)
         {
@@ -64,11 +76,32 @@ public class Player3 : MonoBehaviour
 
     void FixedUpdate()
     {
-        // --- Aplicación del movimiento (siempre en FixedUpdate, junto con la física) ---
-        Vector3 move = (Vector3.forward * moveInput.y + Vector3.right * moveInput.x).normalized;
+        // --- Rotación con A/D: gira el propio cuerpo del jugador ---
+        float turnAmount = moveInput.x * turnSpeed * Time.fixedDeltaTime;
+        rb.MoveRotation(rb.rotation * Quaternion.Euler(0f, turnAmount, 0f));
+
+        // --- Avance/retroceso con W/S: siempre según hacia dónde mira el jugador ---
+        Vector3 move = transform.forward * moveInput.y;
         Vector3 targetVelocity = move * speed;
 
         // Mantiene la velocidad vertical actual (gravedad, salto) y solo controla X/Z
         rb.linearVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z);
     }
 }
+
+
+        /*Vector3 
+         = new Vector3 (vertical * Time.deltaTime, 0, horizontal * Time.deltaTime);
+        transform.position += 
+        ;
+        if (
+        .magnitude >= 0f)
+        {
+            float targetAngle = Mathf.Atan2(
+            .x, 
+            .z)*Mathf.Rad2Deg;//+localEulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.localEulerAngles.y, targetAngle, ref currentVelocity, smoothTime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            controller.Move(moveDir*speed*Time.deltaTime);
+        }*/

@@ -7,14 +7,16 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class Muerte : MonoBehaviour
 {
-    public Transform player;
-    public string playerTag = "Capsule";
+    public string playerTag = "Player";
 
-    void OnTriggerEnter(Collider Muerte)
+    [Tooltip("Arrastrá acá el objeto de la cámara (con el script FollowCamera3D) para que se reubique detrás del jugador al respawnear")]
+    public FolllowCamera3D cameraFolllow;
+
+    void OnTriggerEnter(Collider other)
     {
-        if (!Muerte.CompareTag(playerTag)) return;
+        if (!other.CompareTag(playerTag)) return;
 
-        Rigidbody rb = Muerte.attachedRigidbody;
+        Rigidbody rb = other.attachedRigidbody;
         Vector3 respawnPos = CheckpointManager.Instance.CurrentRespawnPosition;
 
         if (rb != null)
@@ -26,8 +28,15 @@ public class Muerte : MonoBehaviour
         }
         else
         {
-            Muerte.transform.position = respawnPos;
+            other.transform.position = respawnPos;
         }
 
+        if (cameraFolllow != null)
+        {
+            cameraFolllow.ResetBehindPlayer();
+        }
+
+        // Acá podrías restar una vida, reproducir un sonido de muerte, etc.
     }
 }
+
