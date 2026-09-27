@@ -51,35 +51,53 @@ public class Player3 : MonoBehaviour
 
 
     void Update()
-    {
+    {        
+        CheckGround();
+        float h;
+        float v;
+        moveInput = new Vector3 (v, 0, h);
         float targetAngle = Mathf.Atan2(moveInput.x, moveInput.z)*Mathf.Rad2Deg+ cam.localEulerAngles.y;
         float angle = Mathf.SmoothDampAngle(transform.localEulerAngles.y, targetAngle, ref currentVelocity, smoothTime);
-        CheckGround();
 
-        // --- Lectura de input (siempre en Update) ---
-        float h = 0f, v = 0f;
+        
 
-        if (Keyboard.current.wKey.IsPressed()) v -= 1f;   // adelante
-        if (Keyboard.current.sKey.IsPressed()) v += 1f;   // atrás
-        if (Keyboard.current.aKey.IsPressed()) h += 1f; 
-        if (Keyboard.current.aKey.IsPressed()) h -= 1f;   // gira a la izquierda
+        if (Keyboard.current.wKey.IsPressed())
+        {
+            transform.position -=  moveInput*speed*Time.deltaTime;
+        }
 
-        moveInput = new Vector3 (v, 0, h);
-        transform.position +=  moveInput;
+        if (Keyboard.current.sKey.IsPressed())
+        {
+            transform.position +=  moveInput*speed*Time.deltaTime;
+        }
 
-        if (Keyboard.current.dKey.IsPressed())
+     /* if (Keyboard.current.aKey.IsPressed())
+        {
+            transform.position +=  moveInput*speed*Time.deltaTime;
+            transform.rotation = Quaternion.Euler(0f, - angle, 0f);
+        }
+
+        if (Keyboard.current.dKey.IsPressed()) 
+        {
+            transform.position +=  moveInput*speed*Time.deltaTime;
+            transform.rotation = Quaternion.Euler(0f,angle, 0f);
+        }*/
+
+      /*if (Keyboard.current.dKey.IsPressed())
         {
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * moveInput;
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            transform.position +=  moveInput;
             controller.Move(moveDir*speed*Time.deltaTime);
         }
         
         if (Keyboard.current.aKey.IsPressed())
         {
-            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * (- moveInput);
+            Vector3 moveDir = Quaternion.Euler(0f,-targetAngle, 0f) * (- moveInput);
             transform.rotation = Quaternion.Euler(0f,-angle, 0f);
+            transform.position -=  moveInput;
             controller.Move(moveDir*speed*Time.deltaTime);
-        }
+        }*/
  /*
         {
             float targetAngle = Mathf.Atan2(moveInput.x, moveInput .z)*Mathf.Rad2Deg+ cam.localEulerAngles.y;
