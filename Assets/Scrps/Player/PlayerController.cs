@@ -57,10 +57,9 @@ public class PlayerController : MonoBehaviour
         else
         {
             moveDirection = new Vector3(xDisplacement * speed, moveDirection.y, zDisplacement * speed);
-            transform.position += moveDirection;
         }
 
-        if ((moveDirection.x != 0.0f || moveDirection.z != 0.0f)&& isStanding==false && isRunning == true)
+        if ((moveDirection.x != 0.0f || moveDirection.z != 0.0f)&& isStanding==false)
         {
             float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
