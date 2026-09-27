@@ -485,6 +485,8 @@ GameObject:
   - component: {fileID: 330585548}
   - component: {fileID: 330585550}
   - component: {fileID: 330585551}
+  - component: {fileID: 330585552}
+  - component: {fileID: 330585553}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -559,12 +561,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.070893355, y: 0.7679948, z: -0.08633431, w: 0.6306381}
-  m_LocalPosition: {x: -7.825883, y: 2.7976217, z: 0.94722795}
-  m_LocalScale: {x: 1.0002772, y: 0.97475725, z: 1.0520567}
+  m_LocalRotation: {x: 0.055737775, y: -0.8612099, z: 0.096813135, w: 0.49582064}
+  m_LocalPosition: {x: -79.56187, y: 7.2776217, z: -141.57025}
+  m_LocalScale: {x: 1.0002775, y: 0.97475725, z: 1.052057}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1412413052}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 12.828, y: -20.47, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
@@ -651,13 +653,54 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac48f41c58e54c1b9489c2bf070e96b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraController
+  player: {fileID: 0}
+  distance: 3
+  smoothTime: 0.25
+--- !u!114 &330585552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa504d1293d9e42c8a4446629c55f11e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::cameraFollowWithCollision
+  lockCameraOrbiting: 306
+  mouseRotationSensibility: 1
+  mouseScrollSensibility: 1
+  minDistanceFromPlayer: 1
+  maxDistanceFromPlayer: 2
+  cameraHeightFromPlayer: -2
+  resumeCameraRotationSmoothing: 2
+  target: {fileID: 1412413052}
+  CamOcclusion:
+    serializedVersion: 2
+    m_Bits: 0
+  cameraHeight: 55
+  cameraPan: 0
+  camRotateSpeed: 180
+--- !u!114 &330585553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b11e57a3ef2ff474482eb20fcc0cc94c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FolllowCamera3D
   player: {fileID: 1412413052}
-  distance: 10
+  distance: 20
   sensitivity: 20
   minPitch: -30
   maxPitch: 60
@@ -1059,7 +1102,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1819,10 +1862,10 @@ GameObject:
   - component: {fileID: 1412413052}
   - component: {fileID: 1412413051}
   - component: {fileID: 1412413050}
-  - component: {fileID: 1412413049}
   - component: {fileID: 1412413048}
-  - component: {fileID: 1412413053}
   - component: {fileID: 1412413054}
+  - component: {fileID: 1412413055}
+  - component: {fileID: 1412413056}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -1855,31 +1898,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 32
+  m_Constraints: 80
   m_CollisionDetection: 2
---- !u!136 &1412413049
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1412413046}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1412413050
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1945,37 +1965,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1412413046}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.935575, z: -0, w: -0.35312825}
+  m_LocalRotation: {x: -0, y: -0.9559221, z: -0, w: -0.29362035}
   m_LocalPosition: {x: -86.06187, y: 4.48, z: -146.03026}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 330585546}
+  m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -221.358, z: 0}
---- !u!114 &1412413053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1412413046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d091d4f9648eb48d7ac4d52c6e502394, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player3
-  speed: 10
-  turnSpeed: 150
-  jump: {x: 0, y: 0, z: 0}
-  jumpForce: 5
-  isTouchingGround: 1
-  groundCheckDistance: 0.2
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  controller: {fileID: 1412413054}
-  cam: {fileID: 330585546}
+  m_LocalEulerAnglesHint: {x: 0, y: -214.15, z: 0}
 --- !u!143 &1412413054
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1994,12 +1990,57 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
+  m_Height: 1.9
   m_Radius: 0.6
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1412413055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412413046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6fde7d8fed57624baf42e8180045ad1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  speed: 10
+  jumpSpeed: 5
+  gravity: 8
+  cam: {fileID: 330585546}
+  turnSmoothTime: 0.1
+  isFalling: 0
+  isGrounded: 0
+  isJumping: 0
+  isRunning: 0
+  isStanding: 1
+--- !u!136 &1412413056
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412413046}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1523967130
 GameObject:
@@ -2736,6 +2777,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 165657867}
+  - {fileID: 330585546}
   - {fileID: 1412413052}
   - {fileID: 2051149618}
   - {fileID: 1997722355}
