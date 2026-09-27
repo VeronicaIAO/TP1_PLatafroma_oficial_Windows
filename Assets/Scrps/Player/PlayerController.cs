@@ -8,8 +8,8 @@ public class PlayerController : MonoBehaviour
 {
     CharacterController controller;
     public float speed = 10.0f;
-    public float jumpSpeed = 8.0f;
-    public float gravity = 20.0f;
+    public float jumpSpeed = 10.0f;
+    public float gravity = -20.0f;
 
     private Vector3 moveDirection = Vector3.zero;
 
@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
         moveDirection.y -= gravity * Time.deltaTime;
         isGrounded = true;
         isStanding = true;        
+        isJumping = false;
         isGrounded = controller.isGrounded;
         if (isFalling)
             xDisplacement = zDisplacement = 0.0f;
@@ -46,12 +47,11 @@ public class PlayerController : MonoBehaviour
         {
             isFalling = false;
             moveDirection = new Vector3(xDisplacement * speed, 0, zDisplacement * speed);
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Keyboard.current.spaceKey.IsPressed())
             {
                 moveDirection.y = jumpSpeed;
                 isJumping = true;
                 isRunning = false;
-                isStanding = false;
             }                          
         }
         else
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
             moveDirection = new Vector3(xDisplacement * speed, moveDirection.y, zDisplacement * speed);
         }
 
-        if ((moveDirection.x != 0.0f || moveDirection.z != 0.0f)&& isStanding==false)
+        if (moveDirection.x != 0.0f || moveDirection.z != 0.0f)
         {
             float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             moveDir.y = moveDirection.y;
             moveDir.x *= speed;
-            moveDir.z *= speed;
+            moveDir.z *= speed; 
             controller.Move(moveDir * Time.deltaTime);
             if (controller.isGrounded)
             {

@@ -29,10 +29,15 @@ public class FolllowCamera3D : MonoBehaviour
     void Start()
     {
         // Bloquea el cursor en el centro de la pantalla y lo oculta
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
+        transform.position = player.transform.position *(-defaultPitch);
+        float baseYaw = player.eulerAngles.y;
+        float yaw = baseYaw;
+        Quaternion rotation = Quaternion.Euler(defaultPitch, yaw, 0f);
         ResetBehindPlayer();
+
+
     }
 
      /// Reubica la cámara detrás del jugador en la posición por defecto, sin suavizado (snap instantáneo).
@@ -45,7 +50,7 @@ public class FolllowCamera3D : MonoBehaviour
         // Si es independiente, el offset absoluto se iguala al yaw del jugador para que quede detrás de él.
         mouseYawOffset = followPlayerRotation ? 0f : player.eulerAngles.y;
 
-        SnapToTargetPosition();
+       // SnapToTargetPosition();
     }
 
     void SnapToTargetPosition()
@@ -73,7 +78,7 @@ public class FolllowCamera3D : MonoBehaviour
         pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
     }
 
-    void OnApplicationFocus(bool hasFocus)
+    /*void OnApplicationFocus(bool hasFocus)
     {
         // Al volver a la ventana (por ej. tras hacer clic en la Game View), re-bloquea el cursor
         if (hasFocus)
@@ -81,7 +86,7 @@ public class FolllowCamera3D : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
-    }
+    }*/
 
     void LateUpdate()
     {
