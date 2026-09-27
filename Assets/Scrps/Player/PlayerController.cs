@@ -8,16 +8,18 @@ public class PlayerController : MonoBehaviour
 {
     CharacterController controller;
     public float speed = 10.0f;
-    public float jumpSpeed = 10.0f;
+    public Vector3 jump;
+    public float jumpSpeed = 20.0f;
     public float gravity = -20.0f;
 
     private Vector3 moveDirection = Vector3.zero;
-
+    public Transform checkPoint1, checkPoint2, checkPoint3;
     public Transform cam;
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
     private Vector3 initialPosition;
     private Quaternion initialRotation;
+    Rigidbody rb;
 
     public bool isFalling = false;
     public bool isGrounded = false;
@@ -28,8 +30,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        initialPosition = transform.position;
-        initialRotation = transform.rotation;
+        initialPosition = checkPoint1.transform.position;
+        initialRotation = checkPoint1.transform.rotation;
         initialPosition.y += 50;
     }
     void Update() {
@@ -47,9 +49,9 @@ public class PlayerController : MonoBehaviour
         {
             isFalling = false;
             moveDirection = new Vector3(xDisplacement * speed, 0, zDisplacement * speed);
-            if (Keyboard.current.spaceKey.IsPressed())
+            if ((Keyboard.current.spaceKey.IsPressed())&&(isGrounded==true))
             {
-                moveDirection.y = jumpSpeed;
+                rb.AddForce(jump * jumpSpeed, ForceMode.Impulse);
                 isJumping = true;
                 isRunning = false;
             }                          
@@ -73,6 +75,11 @@ public class PlayerController : MonoBehaviour
             {
                 isRunning = true;
                 isStanding = false;
+                if (Keyboard.current.shiftKey.IsPressed())
+                {
+                    moveDirection.x *= 2;
+                    moveDirection.z *= 2;
+                }      
             }                
             else
             {

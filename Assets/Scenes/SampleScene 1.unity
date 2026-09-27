@@ -579,6 +579,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1dbbaea78b4d43cbb33f3ac764f43d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Behaviour
+  rotationX: 0
+  rotationY: 0
   sensitivity: 7
 --- !u!114 &330585548
 MonoBehaviour:
@@ -639,6 +641,7 @@ MonoBehaviour:
   player: {fileID: 0}
   distance: 3
   smoothTime: 0.25
+  currentVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &330585552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -656,15 +659,18 @@ MonoBehaviour:
   mouseScrollSensibility: 1
   minDistanceFromPlayer: 1
   maxDistanceFromPlayer: 2
+  DistanceFromPlayerDelta: 0
   cameraHeightFromPlayer: -2
   resumeCameraRotationSmoothing: 2
+  cameraRoationDelta: 70
   target: {fileID: 1412413052}
   CamOcclusion:
-    serializedVersion: 2
     m_Bits: 0
   cameraHeight: 55
   cameraPan: 0
   camRotateSpeed: 180
+  camPosition: {x: 0, y: 0, z: 0}
+  virtualCamMask: {x: 0, y: 0, z: 0}
 --- !u!114 &330585553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1876,7 +1882,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 2
 --- !u!23 &1412413050
 MeshRenderer:
@@ -1990,6 +1996,9 @@ MonoBehaviour:
   speed: 10
   jumpSpeed: 5
   gravity: 8
+  checkPoint1: {fileID: 688354551}
+  checkPoint2: {fileID: 1229983634}
+  checkPoint3: {fileID: 441942583}
   cam: {fileID: 330585546}
   turnSmoothTime: 0.1
   isFalling: 0
@@ -2147,7 +2156,6 @@ GameObject:
   - component: {fileID: 1712785909}
   - component: {fileID: 1712785910}
   - component: {fileID: 1712785911}
-  - component: {fileID: 1712785912}
   m_Layer: 0
   m_Name: Plataforma (5) movible
   m_TagString: Untagged
@@ -2268,7 +2276,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1712785904}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 098420eedb90246a6a82f6b920f3873f, type: 3}
   m_Name: 
@@ -2303,25 +2311,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1712785912
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1712785904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d86becb93a6cb074485b0df75f45c61b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MovePlatform
-  speed: 2
-  targetPosition: {x: 0, y: 0, z: 0}
-  initialPosition: {x: 0, y: 0, z: 0}
-  waitSeconds: 0
-  waitStart: 0
-  startTrigger: 0
-  forward: 1
 --- !u!1 &1914574074
 GameObject:
   m_ObjectHideFlags: 0
