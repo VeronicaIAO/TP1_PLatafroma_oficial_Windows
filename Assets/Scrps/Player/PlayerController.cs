@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
             moveDirection = new Vector3(xDisplacement * speed, 0, zDisplacement * speed);
             if ((Keyboard.current.spaceKey.IsPressed())&&(isGrounded==true))
             {
-                rb.AddForce(jump * jumpSpeed, ForceMode.Impulse);
+                moveDirection.y = jumpSpeed;
                 isJumping = true;
                 isRunning = false;
             }                          

@@ -1,34 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Colocar en cada checkpoint. El collider debe tener "Is Trigger" activado.
-/// Al entrar el jugador, calcula el centro del collider y lo guarda como punto de reaparición.
-/// </summary>
-[RequireComponent(typeof(Collider))]
 public class Checkpoint : MonoBehaviour
 {
-    [Tooltip("Tag que debe tener el jugador (por defecto 'Player')")]
-    public string playerTag = "Player";
+    public PlayerController player;
 
-    [Tooltip("Se activa visualmente/sonoramente una sola vez, opcional")]
-    public bool activated = false;
-
-    Collider col;
-    void Awake()
+    void Start()
     {
-        col = GetComponent<Collider>();
+        player = FindObjectOfType<PlayerController>();
+    }
+    
+    public void CheckpointOn()
+    {
+        Checkpoint[] checkpoints = FindObjectsOfType<Checkpoint>();
+        foreach (Checkpoint cp in checkpoints)
+        {
+            cp.CheckpointOff();
+        }
     }
 
-    void OnTriggerEnter(Collider other)
+    public void CheckpointOff()
     {
-        if (!other.CompareTag(playerTag)) return;
 
-        // Posición central del collider del checkpoint (funciona con Box, Sphere, Capsule, etc.)
-        Vector3 centerPosition = col.bounds.center;
-
-        CheckpointManager.Instance.SetRespawnPosition(centerPosition);
-        activated = true;
-
-        // Acá podrías disparar un sonido, un efecto visual, etc.
+    }
+    private void OnTriggerEnter (Collider other)
+    {
+        if (other.tag.Equals("Player"))
+        {
+            player.AddPlayerForConnection(transform.position);
+            CheckpointOn();
+        }    
     }
 }
