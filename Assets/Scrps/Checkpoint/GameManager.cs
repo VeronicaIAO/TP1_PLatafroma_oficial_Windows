@@ -1,25 +1,31 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
 
     public static GameManager Instance;
 
-    public Transform lastCheckpoint;
+    //public Transform lastCheckpoint;
+    public Vector3 currentSpawnPoint;
+    public UnityEvent magment;
 
     private void Awake()
     {
-        Instance = this;        
-    }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetCheckpoint(Vector3 newSpawnPosition)
     {
-        
+        currentSpawnPoint = newSpawnPosition;
     }
 }

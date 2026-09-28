@@ -6,40 +6,22 @@ public class Checkpoint : MonoBehaviour
 {
     private bool isActivated = false;
     [SerializeField] ResetTrigger resetTrigger;
-    
-    /*
     public PlayerController player;
+    [SerializeField] GameManager GameManager; 
 
-    void Start()
-    {
-        player = FindObjectByType<PlayerController>();
-    }
-    
-    public void CheckpointOn()
-    {
-        Checkpoint[] checkpoints = FindObjectsByType<Checkpoint>();
-        foreach (Checkpoint cp in checkpoints)
-        {
-            cp.CheckpointOff();
-        }
-    } 
-
-    public void CheckpointOff()
-    {
-
-    }*/
 
     private void OnTriggerEnter (Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            if (isActivated)
+            if (isActivated && player.isFalling==true)
             {
                 resetTrigger.SetSpawnPoint(transform.position);
                 isActivated = true;
+                GameManager.Instance.SetCheckpoint(transform.position);
+                Debug.Log("Checkpoint guardado en: " + transform.position);
             }
             
-            //CheckpointOn();
         }    
     }
 }

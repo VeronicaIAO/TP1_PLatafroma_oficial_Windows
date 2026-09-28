@@ -628,6 +628,59 @@ MonoBehaviour:
   smoothTime: 0.1
   followPlayerRotation: 0
   defaultPitch: 15
+--- !u!1 &424346036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 424346038}
+  - component: {fileID: 424346037}
+  m_Layer: 0
+  m_Name: Death
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &424346037
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424346036}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 500, y: 1, z: 400}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &424346038
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424346036}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -109, y: -15, z: -60}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &435784090
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,13 +781,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 441942581}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.6950306, z: -0, w: -0.71898013}
-  m_LocalPosition: {x: -130.69958, y: 12.59, z: -48.33652}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
+  m_LocalPosition: {x: -132.02, y: 12.59, z: -45.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 271.941, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
 --- !u!114 &441942586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -748,6 +801,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
   resetTrigger: {fileID: 962411822}
+  player: {fileID: 1412413055}
+  checkpoints: []
 --- !u!1 &457248024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1003,118 +1058,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 91.754, z: 0}
---- !u!1 &676997848
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 676997850}
-  - component: {fileID: 676997849}
-  - component: {fileID: 676997851}
-  - component: {fileID: 676997852}
-  - component: {fileID: 676997853}
-  m_Layer: 0
-  m_Name: Muerte
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!65 &676997849
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 676997848}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 376.93613, y: 0, z: 215.92241}
-  m_Center: {x: -112.54088, y: 0, z: -7.026314}
---- !u!224 &676997850
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 676997848}
-  m_LocalRotation: {x: -0, y: 0.71898013, z: -0, w: 0.6950306}
-  m_LocalPosition: {x: 0, y: 0, z: -137.71051}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 91.941, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -108.469765, y: -7.040001}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &676997851
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 676997848}
-  m_CullTransparentMesh: 1
---- !u!114 &676997852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 676997848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbbac9e3285354057be0afd5d5b33b7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Muerte
-  playerTag: Player
-  cameraFolllow: {fileID: 0}
---- !u!114 &676997853
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 676997848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &688354549
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,6 +1125,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
   resetTrigger: {fileID: 962411822}
+  player: {fileID: 1412413055}
+  checkpoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &692224862
 GameObject:
   m_ObjectHideFlags: 0
@@ -1492,7 +1440,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 962411824}
-  - component: {fileID: 962411823}
   - component: {fileID: 962411822}
   m_Layer: 0
   m_Name: GameManager
@@ -1514,22 +1461,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResetTrigger
   player: {fileID: 1412413052}
+  checkpoints:
+  - {fileID: 688354552}
+  - {fileID: 1229983637}
+  - {fileID: 441942586}
   respawn:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &962411823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 962411821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28e1dc207034f484c8763dd58e961da9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  lastCheckpoint: {fileID: 688354551}
 --- !u!4 &962411824
 Transform:
   m_ObjectHideFlags: 0
@@ -1816,6 +1754,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
   resetTrigger: {fileID: 962411822}
+  player: {fileID: 1412413055}
+  checkpoints: []
 --- !u!1 &1321514055
 GameObject:
   m_ObjectHideFlags: 0
@@ -2004,7 +1944,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 2
@@ -2119,11 +2059,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   speed: 10
   jump: {x: 0, y: 0, z: 0}
-  jumpSpeed: 5
+  jumpSpeed: 20
   gravity: 8
-  checkPoint1: {fileID: 688354551}
-  checkPoint2: {fileID: 1229983634}
-  checkPoint3: {fileID: 441942583}
+  checkpoints: {fileID: 688354552}
   cam: {fileID: 330585546}
   turnSmoothTime: 0.1
   isFalling: 0
@@ -2131,6 +2069,9 @@ MonoBehaviour:
   isJumping: 0
   isRunning: 0
   isStanding: 1
+  jumpHeight: 1.5
+  fallLimit: -20
+  resetTrigger: {fileID: 962411822}
 --- !u!136 &1412413056
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2952,11 +2893,11 @@ SceneRoots:
   - {fileID: 223200526}
   - {fileID: 1334822629}
   - {fileID: 809327913}
-  - {fileID: 676997850}
   - {fileID: 688354551}
   - {fileID: 1229983634}
   - {fileID: 441942583}
   - {fileID: 435784092}
+  - {fileID: 424346038}
   - {fileID: 962411824}
   - {fileID: 988086019}
   - {fileID: 1002801521}

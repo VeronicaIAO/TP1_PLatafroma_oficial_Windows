@@ -5,10 +5,19 @@ using UnityEngine.Events;
 
 public class ResetTrigger : MonoBehaviour
 {
-   public Transform player;
+    public Transform player;
+   // public PlayerController player;
     private Vector3 spwanPoint;
+
+ /*   public Checkpoint[] checkpoints; 
+    foreach (Checkpoint cp in checkpoints)
+    {
+        cp.isActivated= false;
+    } */
+
     
     public UnityEvent respawn;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,7 +37,11 @@ public class ResetTrigger : MonoBehaviour
             other.gameObject.transform.root.position = spwanPoint;
             respawn.Invoke();
 
-            Rigidbody rb = other.gameObject.GetComponent<Rigidbody>();
+           /* Rigidbody rb = other.gameObject.GetComponent<Rigidbody>();
+            if (rb = null)
+            {
+                player.verticalVelocity = Vector3.zero;
+            } */
         }
     }
     // Update is called once per frame
