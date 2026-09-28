@@ -691,8 +691,7 @@ GameObject:
   m_Component:
   - component: {fileID: 441942583}
   - component: {fileID: 441942582}
-  - component: {fileID: 441942585}
-  - component: {fileID: 441942584}
+  - component: {fileID: 441942586}
   m_Layer: 0
   m_Name: Checkpoint (3)
   m_TagString: Untagged
@@ -736,21 +735,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 271.941, z: 0}
---- !u!114 &441942584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 441942581}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a71df3d26d0f461c887de33948fe459, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CheckpointManager
-  player: {fileID: 1412413052}
-  CurrentRespawnPosition: {x: 0, y: 0, z: 0}
---- !u!114 &441942585
+--- !u!114 &441942586
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -762,8 +747,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6d977c01fc174329bbf88efb3694b1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
-  playerTag: Player
-  activated: 0
+  resetTrigger: {fileID: 962411822}
 --- !u!1 &457248024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1141,7 +1125,6 @@ GameObject:
   m_Component:
   - component: {fileID: 688354551}
   - component: {fileID: 688354550}
-  - component: {fileID: 688354553}
   - component: {fileID: 688354552}
   m_Layer: 0
   m_Name: CheckPoint (1)
@@ -1195,25 +1178,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 688354549}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a71df3d26d0f461c887de33948fe459, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CheckpointManager
-  player: {fileID: 1412413052}
-  CurrentRespawnPosition: {x: 0, y: 0, z: 0}
---- !u!114 &688354553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 688354549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6d977c01fc174329bbf88efb3694b1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
-  playerTag: Player
-  activated: 0
+  resetTrigger: {fileID: 962411822}
 --- !u!1 &692224862
 GameObject:
   m_ObjectHideFlags: 0
@@ -1515,6 +1483,68 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Obstacle
   _waypointPath: {fileID: 988086020}
   _speed: 5
+--- !u!1 &962411821
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 962411824}
+  - component: {fileID: 962411823}
+  - component: {fileID: 962411822}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &962411822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962411821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9431f232f5ecb7c4d83d61e116054207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResetTrigger
+  player: {fileID: 1412413052}
+  respawn:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &962411823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962411821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28e1dc207034f484c8763dd58e961da9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  lastCheckpoint: {fileID: 688354551}
+--- !u!4 &962411824
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962411821}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -141.46529, y: 34.22718, z: -71.85558}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &988086018
 GameObject:
   m_ObjectHideFlags: 0
@@ -1729,8 +1759,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1229983634}
   - component: {fileID: 1229983633}
-  - component: {fileID: 1229983636}
-  - component: {fileID: 1229983635}
+  - component: {fileID: 1229983637}
   m_Layer: 0
   m_Name: Checkpoint (2)
   m_TagString: Untagged
@@ -1774,21 +1803,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 199.441, z: 0}
---- !u!114 &1229983635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1229983632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a71df3d26d0f461c887de33948fe459, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CheckpointManager
-  player: {fileID: 1412413052}
-  CurrentRespawnPosition: {x: 0, y: 0, z: 0}
---- !u!114 &1229983636
+--- !u!114 &1229983637
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1800,8 +1815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6d977c01fc174329bbf88efb3694b1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
-  playerTag: Player
-  activated: 0
+  resetTrigger: {fileID: 962411822}
 --- !u!1 &1321514055
 GameObject:
   m_ObjectHideFlags: 0
@@ -2943,5 +2957,6 @@ SceneRoots:
   - {fileID: 1229983634}
   - {fileID: 441942583}
   - {fileID: 435784092}
+  - {fileID: 962411824}
   - {fileID: 988086019}
   - {fileID: 1002801521}
