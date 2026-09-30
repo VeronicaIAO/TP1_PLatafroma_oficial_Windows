@@ -2,11 +2,18 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/*
+ * CharachterController --> Rigidbody --> Referenciar RigidBody = rb
+ * iHeartDev --yt
+ * Rytech_Dev -->yt
+ * public Transform Checkpoint
+ * Ds: Rojoin
+ */
+
 public class PlayerController : MonoBehaviour
 {
     CharacterController controller;
     public Transform cam;
-    public GameManager GameManager;
 
     [Header("Movimiento")]
     public float speed = 10.0f;
@@ -90,7 +97,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // 4. Aplicar Gravedad
-        verticalVelocity += gravity * Time.deltaTime;
+        verticalVelocity -= gravity * Time.deltaTime;
         moveDir.y = verticalVelocity;
 
         // 5. Mover al jugador

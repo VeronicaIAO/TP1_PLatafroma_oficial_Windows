@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,13 +24,12 @@ public class FolllowCamera3D : MonoBehaviour
     [Tooltip("Ángulo de inclinación (pitch) con el que aparece la cámara detrás del jugador")]
     public float defaultPitch = 15f;
 
-    float mouseYawOffset; // lo que el mouse suma/resta por encima de la rotación del jugador
-    float pitch;           // rotación vertical (arriba/abajo), siempre libre por mouse
+    float mouseYawOffset;
+    float pitch;         
 
     void Start()
     {
-        // Bloquea el cursor en el centro de la pantalla y lo oculta
-        //Cursor.lockState = CursorLockMode.Locked;
+
         Cursor.visible = false;
         transform.position = player.transform.position *(-defaultPitch);
         float baseYaw = player.eulerAngles.y;
@@ -40,14 +40,12 @@ public class FolllowCamera3D : MonoBehaviour
 
     }
 
-     /// Reubica la cámara detrás del jugador en la posición por defecto, sin suavizado (snap instantáneo).
-    /// Llamar al arrancar el juego y cada vez que el jugador respawnea.
-    /// </summary>
+
     public void ResetBehindPlayer()
     {
         pitch = defaultPitch;
-        // Si la cámara sigue la rotación del jugador, el offset del mouse arranca en 0.
-        // Si es independiente, el offset absoluto se iguala al yaw del jugador para que quede detrás de él.
+
+
         mouseYawOffset = followPlayerRotation ? 0f : player.eulerAngles.y;
 
        // SnapToTargetPosition();
@@ -61,7 +59,7 @@ public class FolllowCamera3D : MonoBehaviour
         Quaternion rotation = Quaternion.Euler(pitch, yaw, 0f);
         Vector3 targetPosition = player.position - (rotation * Vector3.forward * (-distance));
 
-        transform.position = targetPosition; // sin SmoothDamp: aparece ahí directamente
+        transform.position = targetPosition; 
         currentVelocity = Vector3.zero;
         transform.LookAt(player);
     }
