@@ -14,7 +14,7 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (isActivated && player.isFalling==true)
+            if (isActivated)
             {
                 resetTrigger.SetSpawnPoint(transform.position);
                 isActivated = true;
