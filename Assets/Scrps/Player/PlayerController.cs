@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 /*
- * CharachterController --> Rigidbody --> Referenciar RigidBody = rb
+ * Charachterrb --> Rigidbody --> Referenciar RigidBody = rb
  * iHeartDev --yt
  * Rytech_Dev -->yt
  * public Transform Checkpoint
@@ -12,21 +12,17 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    CharacterController controller;
+    public Rigidbody rb;
     public Transform cam;
 
-    [Header("Movimiento")]
     public float speed = 10.0f;
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
 
-    [Header("Salto y Gravedad")]
     public float jumpHeight = 2.0f;
-    public float gravity = -20.0f; // La gravedad debe ser negativa
+    public float gravity = -20.0f; 
     private float verticalVelocity;
 
-    [Header("Estados")]
-    public bool isFalling = false;
     public bool isGrounded = false;
     public bool isJumping = false;
     public bool isRunning = false;
@@ -35,15 +31,12 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        controller = GetComponent<CharacterController>();
         // Guardar la posición inicial en el GameManager
-        GameManager.Instance.SetCheckpoint(transform.position);
+       // GameManager.Instance.SetCheckpoint(transform.position);
     }
 
     void Update()
     {
-        // 1. Detección de suelo
-        isGrounded = controller.isGrounded;
 
         if (isGrounded && verticalVelocity < 0)
         {
@@ -101,15 +94,15 @@ public class PlayerController : MonoBehaviour
         moveDir.y = verticalVelocity;
 
         // 5. Mover al jugador
-        controller.Move(moveDir * Time.deltaTime);
+        moveDir = moveDir * Time.deltaTime;
 
         // 6. Reseteo por caída al vacío (Fallback de seguridad)
         if (transform.position.y < -10f)
         {
-            controller.enabled = false;
+           // rb.enabled = false;
             transform.position = GameManager.Instance.currentSpawnPoint;
             verticalVelocity = 0f;
-            controller.enabled = true;
+           // rb.enabled = true;
         }
     }
 }

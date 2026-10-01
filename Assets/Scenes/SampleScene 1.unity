@@ -149,23 +149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
-  m_UsePipelineSettings: 1
-  m_AdditionalLightsShadowResolutionTier: 2
-  m_CustomShadowLayers: 0
-  m_LightCookieSize: {x: 1, y: 1}
-  m_LightCookieOffset: {x: 0, y: 0}
-  m_SoftShadowQuality: 0
-  m_RenderingLayersMask:
-    serializedVersion: 0
-    m_Bits: 1
-  m_ShadowRenderingLayersMask:
-    serializedVersion: 0
-    m_Bits: 1
-  m_Version: 4
-  m_LightLayerMask: 1
-  m_ShadowLayerMask: 1
-  m_RenderingLayers: 1
-  m_ShadowRenderingLayers: 1
 --- !u!108 &165657866
 Light:
   m_ObjectHideFlags: 0
@@ -576,38 +559,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_AllowHDROutput: 1
-  m_UseScreenCoordOverride: 0
-  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_TaaSettings:
-    m_Quality: 3
-    m_FrameInfluence: 0.1
-    m_JitterScale: 1
-    m_MipBias: 0
-    m_VarianceClampScale: 0.9
-    m_ContrastAdaptiveSharpening: 0
-  m_Version: 2
 --- !u!114 &330585553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -802,7 +753,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
   resetTrigger: {fileID: 962411822}
   player: {fileID: 1412413055}
-  checkpoints: []
+  GameManager: {fileID: 0}
 --- !u!1 &457248024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1126,10 +1077,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
   resetTrigger: {fileID: 962411822}
   player: {fileID: 1412413055}
-  checkpoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  GameManager: {fileID: 0}
 --- !u!1 &692224862
 GameObject:
   m_ObjectHideFlags: 0
@@ -1461,10 +1409,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResetTrigger
   player: {fileID: 1412413052}
-  checkpoints:
-  - {fileID: 688354552}
-  - {fileID: 1229983637}
-  - {fileID: 441942586}
   respawn:
     m_PersistentCalls:
       m_Calls: []
@@ -1755,7 +1699,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
   resetTrigger: {fileID: 962411822}
   player: {fileID: 1412413055}
-  checkpoints: []
+  GameManager: {fileID: 0}
 --- !u!1 &1321514055
 GameObject:
   m_ObjectHideFlags: 0
@@ -1911,7 +1855,6 @@ GameObject:
   - component: {fileID: 1412413051}
   - component: {fileID: 1412413050}
   - component: {fileID: 1412413048}
-  - component: {fileID: 1412413054}
   - component: {fileID: 1412413055}
   - component: {fileID: 1412413056}
   m_Layer: 0
@@ -1946,7 +1889,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 32
   m_CollisionDetection: 2
 --- !u!23 &1412413050
 MeshRenderer:
@@ -2020,31 +1963,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -127.92, z: 0}
---- !u!143 &1412413054
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1412413046}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 1.9
-  m_Radius: 0.6
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1412413055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2057,21 +1975,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6fde7d8fed57624baf42e8180045ad1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  speed: 10
-  jump: {x: 0, y: 0, z: 0}
-  jumpSpeed: 20
-  gravity: 8
-  checkpoints: {fileID: 688354552}
+  rb: {fileID: 1412413048}
   cam: {fileID: 330585546}
+  speed: 10
   turnSmoothTime: 0.1
+  jumpHeight: 1.5
+  gravity: 8
   isFalling: 0
   isGrounded: 0
   isJumping: 0
   isRunning: 0
-  isStanding: 1
-  jumpHeight: 1.5
-  fallLimit: -20
-  resetTrigger: {fileID: 962411822}
 --- !u!136 &1412413056
 CapsuleCollider:
   m_ObjectHideFlags: 0
