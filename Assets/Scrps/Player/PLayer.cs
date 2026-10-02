@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody))]
 public class PLayer : MonoBehaviour
 {
     public Transform cameraTransform;
@@ -19,14 +18,14 @@ public class PLayer : MonoBehaviour
     private bool jumpRequested;
     public bool isGrounded;
 
-    public float gravedad = -20f;
-    private Vector3 velocidadVertical;
-    public float fuerzaSalto = 8f;
+    public float gravity = -20f;
+    private Vector3 verticalVelocity;
+    public float jumpPForce = 8f;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true; // la rotación la manejamos nosotros, no la física
+        rb.freezeRotation = true;
 
         if (cameraTransform == null && Camera.main != null)
         {
@@ -38,27 +37,28 @@ public class PLayer : MonoBehaviour
     {
         ReadMovementInput();
 
-        if (isGrounded && Keyboard.current.spaceKey.IsPressed())
+        if (isGrounded == true && Keyboard.current.spaceKey.IsPressed())
         {
-            velocidadVertical.y = fuerzaSalto;
+            isGrounded = false;
+            verticalVelocity.y = jumpPForce;
             
-            velocidadVertical.y += gravedad * Time.deltaTime;
-            //moveDirection(velocidadVertical * Time.deltaTime);
+            verticalVelocity.y += gravity * Time.deltaTime;
             Vector3 velocity = rb.linearVelocity;
-            //velocity.y = 1f;
             rb.linearVelocity = velocity;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
-            isGrounded = false;
+           
         }
     }
 
     void FixedUpdate()
     {
-        CheckGrounded();
         ApplyMovement();
         ApplyRotation();
-       // ApplyJump();
-       isGrounded = true;
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        isGrounded = true;
     }
 
     private void ReadMovementInput()
@@ -102,15 +102,7 @@ public class PLayer : MonoBehaviour
         rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, turnSpeed * Time.fixedDeltaTime));
     }
 
-   /* private void ApplyJump()
-    {
 
-    }*/
-
-    private void CheckGrounded()
-    {
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, groundCheckDistance + 0.15f, groundMask);
-    }
 
     void OnDrawGizmosSelected()
     {
