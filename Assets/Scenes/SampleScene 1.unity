@@ -545,14 +545,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b11e57a3ef2ff474482eb20fcc0cc94c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FolllowCamera3D
-  player: {fileID: 1412413052}
+  target: {fileID: 1412413052}
   distance: 15
-  sensitivity: 20
+  targetOffset: {x: 0, y: 1.5, z: 0}
+  sensitivityX: 3
+  sensitivityY: 2
   minPitch: -100
   maxPitch: 100
-  smoothTime: 0.1
-  followPlayerRotation: 0
-  defaultPitch: 15
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 0
+  collisionBuffer: 0.25
 --- !u!1 &424346036
 GameObject:
   m_ObjectHideFlags: 0
@@ -1895,7 +1898,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 80
   m_CollisionDetection: 2
 --- !u!23 &1412413050
 MeshRenderer:
@@ -2026,16 +2029,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70248149da3dce143887273689376b93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PLayer
-  turnSmoothTime: 0.1
-  FloorMask:
+  cameraTransform: {fileID: 330585546}
+  moveSpeed: 5
+  turnSpeed: 10
+  jumpForce: 5
+  groundMask:
     serializedVersion: 2
     m_Bits: 64
-  FeetTransform: {fileID: 567073803}
-  cam: {fileID: 330585546}
-  rb: {fileID: 1412413048}
-  speed: 5
-  jumpForce: 7
+  groundCheckDistance: 0.2
   isGrounded: 0
+  gravedad: 20
+  fuerzaSalto: 8
 --- !u!1 &1523967130
 GameObject:
   m_ObjectHideFlags: 0
@@ -2160,7 +2164,6 @@ GameObject:
   - component: {fileID: 1712785907}
   - component: {fileID: 1712785906}
   - component: {fileID: 1712785905}
-  - component: {fileID: 1712785911}
   - component: {fileID: 1712785912}
   m_Layer: 0
   m_Name: Plataforma (5) movible
@@ -2179,12 +2182,12 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -2262,33 +2265,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!54 &1712785911
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1712785904}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &1712785912
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -31,10 +31,10 @@ public class Muerte : MonoBehaviour
             other.transform.position = respawnPos;
         }
 
-        if (cameraFolllow != null)
+        /*if (cameraFolllow != null)
         {
             cameraFolllow.ResetBehindPlayer();
-        }
+        }*/
 
         // Acá podrías restar una vida, reproducir un sonido de muerte, etc.
     }

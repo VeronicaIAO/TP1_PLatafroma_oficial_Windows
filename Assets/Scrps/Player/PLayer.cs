@@ -2,55 +2,119 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PLayer : MonoBehaviour
 {
-    public float turnSmoothTime = 0.1f;
-    float turnSmoothVelocity;        
-    private Vector3 PlayerMovementInput;
-    public LayerMask FloorMask;
-    public Transform FeetTransform;
-    public Transform cam;
-    public Rigidbody rb;
-    public float speed;
-    public float jumpForce;
+    public Transform cameraTransform;
+
+    public float moveSpeed = 5f;
+    public float turnSpeed = 10f;
+
+    public float jumpForce = 6f;
+    public LayerMask groundMask;
+    public float groundCheckDistance = 0.2f;
+
+    private Rigidbody rb;
+    private Vector3 moveDirection;
+    private bool jumpRequested;
     public bool isGrounded;
-    
 
-    // Update is called once per frame
-    void Update()
+    public float gravedad = -20f;
+    private Vector3 velocidadVertical;
+    public float fuerzaSalto = 8f;
+
+    void Awake()
     {
-        isGrounded = true;
-        PlayerMovementInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true; // la rotación la manejamos nosotros, no la física
 
-        MovePlayer();
+        if (cameraTransform == null && Camera.main != null)
+        {
+            cameraTransform = Camera.main.transform;
+        }
     }
 
-    private void MovePlayer()
+    void Update()
     {
-        isGrounded = true;
-        speed = +speed;
-        Vector3 MoveVector = transform.TransformDirection(PlayerMovementInput)*speed;
-        rb.linearVelocity = new Vector3(MoveVector.x, rb.linearVelocity.y, MoveVector.z);
+        ReadMovementInput();
 
-        if (Keyboard.current.spaceKey.wasPressedThisFrame &&  isGrounded == true)
+        if (isGrounded && Keyboard.current.spaceKey.IsPressed())
         {
-            speed = +speed;
-            rb.AddForce(Vector3.up* jumpForce, ForceMode.Impulse);
+            velocidadVertical.y = fuerzaSalto;
+            
+            velocidadVertical.y += gravedad * Time.deltaTime;
+            //moveDirection(velocidadVertical * Time.deltaTime);
+            Vector3 velocity = rb.linearVelocity;
+            //velocity.y = 1f;
+            rb.linearVelocity = velocity;
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
             isGrounded = false;
         }
+    }
 
-        Vector3 moveDir = Vector3.zero;
+    void FixedUpdate()
+    {
+        CheckGrounded();
+        ApplyMovement();
+        ApplyRotation();
+       // ApplyJump();
+       isGrounded = true;
+    }
 
-        float targetAngle = Mathf.Atan2(PlayerMovementInput.x, PlayerMovementInput.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
-        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-        transform.rotation = Quaternion.Euler(0f, angle, 0f);
+    private void ReadMovementInput()
+    {
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
 
-        moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-
-        if (Keyboard.current.sKey.wasPressedThisFrame)
+        if (cameraTransform == null)
         {
-            speed = -speed;
-            moveDir = Quaternion.Euler(0f, -targetAngle, 0f) *(-Vector3.back);
+            moveDirection = Vector3.zero;
+            return;
         }
+
+        Vector3 camForward = cameraTransform.forward;
+        camForward.y = 0f;
+        camForward.Normalize();
+
+        Vector3 camRight = cameraTransform.right;
+        camRight.y = 0f;
+        camRight.Normalize();
+
+        moveDirection = camForward * vertical + camRight * horizontal;
+        if (moveDirection.sqrMagnitude > 1f)
+        {
+            moveDirection.Normalize();
+        }
+    }
+
+    private void ApplyMovement()
+    {
+        Vector3 horizontalMove = moveDirection * moveSpeed;
+
+        rb.linearVelocity = new Vector3(horizontalMove.x, rb.linearVelocity.y, horizontalMove.z);
+    }
+
+    private void ApplyRotation()
+    {
+        if (moveDirection.sqrMagnitude < 0.001f) return;
+
+        Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+        rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, turnSpeed * Time.fixedDeltaTime));
+    }
+
+   /* private void ApplyJump()
+    {
+
+    }*/
+
+    private void CheckGrounded()
+    {
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, groundCheckDistance + 0.15f, groundMask);
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = isGrounded ? Color.green : Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * (groundCheckDistance + 0.15f));
     }
 }
