@@ -4,24 +4,60 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    private bool isActivated = false;
-    [SerializeField] ResetTrigger resetTrigger;
-    public PlayerController player;
-    [SerializeField] GameManager GameManager; 
-
-
-    private void OnTriggerEnter (Collider other)
+    [Header("Feedback visual (opcional)")]
+    public GameObject activeIndicator;
+ 
+    public PLayer player;
+ 
+    static Checkpoint activeCheckpoint;
+ 
+    void Start()
     {
-        if (other.CompareTag("Player"))
+        player = FindFirstObjectByType<PLayer>();
+ 
+        if (activeIndicator != null)
         {
-            if (isActivated)
-            {
-                resetTrigger.SetSpawnPoint(transform.position);
-                isActivated = true;
-                GameManager.Instance.SetCheckpoint(transform.position);
-                Debug.Log("Checkpoint guardado en: " + transform.position);
-            }
+            activeIndicator.SetActive(false);
+        }
             
-        }    
     }
+ 
+    void OnTriggerStay(Collider other)
+    {
+        if (!other.CompareTag("Player"))
+        {
+            return;
+        } 
+ 
+        player.SetSpawnPoint(transform.position);
+        CheckpointOn();
+    }
+ 
+    public void CheckpointOn()
+    {
+        if (activeCheckpoint != null && activeCheckpoint != this)
+        {
+            activeCheckpoint.CheckpointOff();
+        }
+            
+ 
+        activeCheckpoint = this;
+ 
+        if (activeIndicator != null)
+        {
+            activeIndicator.SetActive(true);
+        }
+            
+    }
+ 
+    public void CheckpointOff()
+    {
+        if (activeIndicator != null)
+        {
+            activeIndicator.SetActive(false);
+        }
+            
+    }
+
 }
+ 

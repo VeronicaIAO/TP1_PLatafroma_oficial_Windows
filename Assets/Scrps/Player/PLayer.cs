@@ -20,7 +20,14 @@ public class PLayer : MonoBehaviour
 
     public float gravity = -20f;
     private Vector3 verticalVelocity;
-    public float jumpPForce = 8f;
+    public float fuerzaSalto = 8f;
+
+    public Vector3 respawnPoint;
+
+    public void SetSpawnPoint(Vector3 newPosition)
+    {
+        respawnPoint = newPosition;
+    }
 
     void Awake()
     {
@@ -40,7 +47,7 @@ public class PLayer : MonoBehaviour
         if (isGrounded == true && Keyboard.current.spaceKey.IsPressed())
         {
             isGrounded = false;
-            verticalVelocity.y = jumpPForce;
+            verticalVelocity.y = fuerzaSalto;
             
             verticalVelocity.y += gravity * Time.deltaTime;
             Vector3 velocity = rb.linearVelocity;
@@ -109,4 +116,10 @@ public class PLayer : MonoBehaviour
         Gizmos.color = isGrounded ? Color.green : Color.red;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * (groundCheckDistance + 0.15f));
     }
+
+    public void Die()
+    {
+        rb.linearVelocity = Vector3.zero;
+    }
+
 }

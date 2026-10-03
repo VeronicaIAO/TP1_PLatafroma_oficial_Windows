@@ -566,6 +566,7 @@ GameObject:
   m_Component:
   - component: {fileID: 424346038}
   - component: {fileID: 424346037}
+  - component: {fileID: 424346039}
   m_Layer: 0
   m_Name: Death
   m_TagString: Untagged
@@ -588,7 +589,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -609,6 +610,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &424346039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424346036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbbac9e3285354057be0afd5d5b33b7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Muerte
 --- !u!1 &435784090
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,6 +632,7 @@ GameObject:
   m_Component:
   - component: {fileID: 435784092}
   - component: {fileID: 435784091}
+  - component: {fileID: 435784093}
   m_Layer: 0
   m_Name: Checkpoint (4) y victoria
   m_TagString: Untagged
@@ -662,6 +676,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 271.941, z: 0}
+--- !u!114 &435784093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435784090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b1c82650bb62a74fb089620fa0b493b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Victory
+  victoryScreen: {fileID: 0}
+  pauseGame: 1
+  unlockCursor: 1
 --- !u!1 &441942581
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,9 +757,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6d977c01fc174329bbf88efb3694b1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
-  resetTrigger: {fileID: 962411822}
-  player: {fileID: 1412413055}
-  GameManager: {fileID: 0}
+  activeIndicator: {fileID: 0}
+  player: {fileID: 1412413057}
 --- !u!1 &457248024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1052,9 +1080,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6d977c01fc174329bbf88efb3694b1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
-  resetTrigger: {fileID: 962411822}
-  player: {fileID: 1412413055}
-  GameManager: {fileID: 0}
+  activeIndicator: {fileID: 0}
+  player: {fileID: 1412413057}
 --- !u!1 &692224862
 GameObject:
   m_ObjectHideFlags: 0
@@ -1674,9 +1701,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6d977c01fc174329bbf88efb3694b1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
-  resetTrigger: {fileID: 962411822}
-  player: {fileID: 1412413055}
-  GameManager: {fileID: 0}
+  activeIndicator: {fileID: 0}
+  player: {fileID: 1412413057}
 --- !u!1 &1321514055
 GameObject:
   m_ObjectHideFlags: 0
@@ -1832,7 +1858,6 @@ GameObject:
   - component: {fileID: 1412413051}
   - component: {fileID: 1412413050}
   - component: {fileID: 1412413048}
-  - component: {fileID: 1412413055}
   - component: {fileID: 1412413056}
   - component: {fileID: 1412413057}
   m_Layer: 0
@@ -1941,27 +1966,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -127.92, z: 0}
---- !u!114 &1412413055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1412413046}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6fde7d8fed57624baf42e8180045ad1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  rb: {fileID: 1412413048}
-  cam: {fileID: 330585546}
-  speed: 10
-  turnSmoothTime: 0.1
-  jumpHeight: 1.5
-  gravity: 8
-  isGrounded: 1
-  isJumping: 0
-  isRunning: 0
 --- !u!136 &1412413056
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2007,7 +2011,8 @@ MonoBehaviour:
   groundCheckDistance: 0.2
   isGrounded: 1
   gravity: -20
-  jumpPForce: 8
+  fuerzaSalto: 8
+  respawnPoint: {x: 0, y: 0, z: 0}
 --- !u!1 &1523967130
 GameObject:
   m_ObjectHideFlags: 0
