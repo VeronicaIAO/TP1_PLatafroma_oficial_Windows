@@ -18,11 +18,12 @@ public class MovingPLatforme : MonoBehaviour
     private float _timeToWaypoint;
     private float _elapsedTime;
 
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         TargetNextWaypoint();
     }
-
+    // Update is called once per frame
     void FixedUpdate()
     {
         _elapsedTime += Time.deltaTime;

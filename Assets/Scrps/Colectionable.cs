@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Colectionable : MonoBehaviour
 {
-    public GameObject pickupEffect; 
+    public int value;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -15,15 +16,12 @@ public class Colectionable : MonoBehaviour
         
     }
 
-    void OnTriggerEnter(Collider other) 
+    private void OnTriggerEnter(Collider other) 
     {
-        if (other.tag.Equals("Player"))
+        if (other.tag =="PLayer")
         {
-            if (pickupEffect != null)
-            {
-                Instantiate(pickupEffect, transform.position, transform.rotation); 
-
-            }
+            FindObjectOfType<GameManagger>().AddCoin(value);
+            
             Destroy(gameObject); 
         }
     }

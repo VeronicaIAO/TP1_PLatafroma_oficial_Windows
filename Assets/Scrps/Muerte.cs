@@ -1,14 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
 [RequireComponent(typeof(Collider))]
 public class Muerte : MonoBehaviour
 {
-    void OnTriggerStay(Collider other)
+    void Reset()
     {
-        if (!other.CompareTag("Player")) return;
+        GetComponent<Collider>().isTrigger = true;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("PLayer")) return;
  
         PLayer player = other.GetComponent<PLayer>();
         if (player != null)

@@ -6,14 +6,8 @@ using UnityEngine.Events;
 public class ResetTrigger : MonoBehaviour
 {
     public Transform player;
-   // public PlayerController player;
-    private Vector3 spwanPoint;
 
- /*   public Checkpoint[] checkpoints; 
-    foreach (Checkpoint cp in checkpoints)
-    {
-        cp.isActivated= false;
-    } */
+    private Vector3 spwanPoint;
 
     
     public UnityEvent respawn;
@@ -32,16 +26,10 @@ public class ResetTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("PLayer"))
         {
             other.gameObject.transform.root.position = spwanPoint;
             respawn.Invoke();
-
-           /* Rigidbody rb = other.gameObject.GetComponent<Rigidbody>();
-            if (rb = null)
-            {
-                player.verticalVelocity = Vector3.zero;
-            } */
         }
     }
     // Update is called once per frame

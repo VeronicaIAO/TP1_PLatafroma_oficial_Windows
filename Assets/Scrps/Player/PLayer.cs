@@ -20,14 +20,13 @@ public class PLayer : MonoBehaviour
 
     public float gravity = -20f;
     private Vector3 verticalVelocity;
-    public float fuerzaSalto = 8f;
+    public float fuerzaSalto = 8f; 
 
     public Vector3 respawnPoint;
 
-    public void SetSpawnPoint(Vector3 newPosition)
-    {
-        respawnPoint = newPosition;
-    }
+    public float respawnGuardTime = 0.2f; // evita que Die() se dispare dos veces seguidas
+    private bool isRespawning = false;
+
 
     void Awake()
     {
@@ -38,6 +37,7 @@ public class PLayer : MonoBehaviour
         {
             cameraTransform = Camera.main.transform;
         }
+        respawnPoint = transform.position;
     }
 
     void Update()
@@ -110,16 +110,27 @@ public class PLayer : MonoBehaviour
     }
 
 
-
-    void OnDrawGizmosSelected()
+     public void SetSpawnPoint(Vector3 position)
     {
-        Gizmos.color = isGrounded ? Color.green : Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * (groundCheckDistance + 0.15f));
+        respawnPoint = position;
     }
-
+ 
     public void Die()
     {
-        rb.linearVelocity = Vector3.zero;
-    }
+        if (isRespawning) return; // corta cualquier doble disparo del mismo frame/trigger
+        isRespawning = true;
 
+        Debug.Log($"[PLayer] Die() llamado en '{name}' (instance ID {GetInstanceID()}). Respawneando en: {respawnPoint}");
+
+        rb.linearVelocity = Vector3.zero;
+        rb.position = respawnPoint;
+        Physics.SyncTransforms();
+ 
+        Invoke(nameof(ClearRespawnGuard), respawnGuardTime);
+    }
+ 
+    private void ClearRespawnGuard()
+    {
+        isRespawning = false;
+    }
 }
