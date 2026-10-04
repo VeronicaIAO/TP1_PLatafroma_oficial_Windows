@@ -21,7 +21,7 @@ public class Checkpoint : MonoBehaviour
             activeIndicator.SetActive(false);
     }
 
-    void OnTriggerSta(Collider other)
+    void OnTriggerStay(Collider other)
     {
         Debug.Log($"[Checkpoint] '{name}' detectó entrada de '{other.name}' (tag: '{other.tag}')");
 

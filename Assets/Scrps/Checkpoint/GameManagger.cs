@@ -7,7 +7,7 @@ public class GameManagger : MonoBehaviour
 
     public bool IsGameOver { get; private set; }
 
-    public int currentCoin;
+    public int currentCoin = 0;
 
 
 
