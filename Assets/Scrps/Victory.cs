@@ -13,6 +13,7 @@ public class Victory : MonoBehaviour
     {
         if (other.CompareTag("Player") && GameManagger.Instance != null)
         {
+            Debug.Log("Llegaste");
             GameManagger.Instance.Victory();
         }
     }
