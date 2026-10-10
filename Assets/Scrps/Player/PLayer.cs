@@ -117,13 +117,14 @@ public class PLayer : MonoBehaviour
  
     public void Die()
     {
-        if (isRespawning) return; // corta cualquier doble disparo del mismo frame/trigger
+        if (isRespawning) return;
         isRespawning = true;
 
         Debug.Log($"[PLayer] Die() llamado en '{name}' (instance ID {GetInstanceID()}). Respawneando en: {respawnPoint}");
 
         rb.linearVelocity = Vector3.zero;
         rb.position = respawnPoint;
+        transform.position = GameManagger.Instance.currentSpawnPoint;
         Physics.SyncTransforms();
  
         Invoke(nameof(ClearRespawnGuard), respawnGuardTime);

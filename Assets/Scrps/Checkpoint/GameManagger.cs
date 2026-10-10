@@ -1,13 +1,20 @@
 using UnityEngine;
+using UnityEngine.Events;
+using System.Collections;
+using System.Collections.Generic;
+
 
 public class GameManagger : MonoBehaviour
 {
 
-    public static GameManagger Instance { get; private set; }
+    public static GameManagger Instance; 
 
-    public bool IsGameOver { get; private set; }
+    public bool IsGameOver = false; 
 
     public int currentCoin = 0;
+
+    public Vector3 currentSpawnPoint;
+    public UnityEvent magment;
 
 
 
@@ -28,20 +35,27 @@ public class GameManagger : MonoBehaviour
         currentCoin += coinToAdd;
     }
 
-    void Awake()
+
+    private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
         {
             Destroy(gameObject);
-            return;
         }
-        Instance = this;
+    }
+
+    public void SetCheckpoint(Vector3 newSpawnPosition)
+    {
+        currentSpawnPoint = newSpawnPosition;
     }
 
     public void Victory()
     {
         if (IsGameOver) return;
         IsGameOver = true;
-        Debug.Log("Victoria: llegaste a la meta.");
     }
 }
