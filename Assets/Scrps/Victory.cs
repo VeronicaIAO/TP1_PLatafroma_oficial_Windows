@@ -3,7 +3,6 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class Victory : MonoBehaviour
 {
-    public GameManagger gamemanagger;
 
     void Reset()
     {
@@ -12,12 +11,10 @@ public class Victory : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && GameManagger.Instance != null)
+        if (other.CompareTag("PLayer") && GameManagger.Instance != null)
         {
             GameManagger.Instance.Victory();
-            gamemanagger.IsGameOver = true;
-            if (gamemanagger.IsGameOver == true) 
-                Debug.Log("Llegaste");
+            Debug.Log("Llegaste");
         }
     }
 }

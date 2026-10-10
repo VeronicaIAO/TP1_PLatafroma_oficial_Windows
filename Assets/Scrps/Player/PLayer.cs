@@ -17,6 +17,7 @@ public class PLayer : MonoBehaviour
     private Vector3 moveDirection;
     private bool jumpRequested;
     public bool isGrounded;
+    private bool touchingGround;
 
     public float gravity = -20f;
     private Vector3 verticalVelocity;
@@ -46,26 +47,29 @@ public class PLayer : MonoBehaviour
 
         if (isGrounded == true && Keyboard.current.spaceKey.IsPressed())
         {
-            isGrounded = false;
-            verticalVelocity.y = fuerzaSalto;
-            
-            verticalVelocity.y += gravity * Time.deltaTime;
-            Vector3 velocity = rb.linearVelocity;
-            rb.linearVelocity = velocity;
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
-           
+            jumpRequested = true;
         }
     }
 
     void FixedUpdate()
     {
+        isGrounded = touchingGround;
+        touchingGround = false;
         ApplyMovement();
         ApplyRotation();
+        ApplyJump();
     }
 
-    void OnCollisionEnter(Collision other)
+    void OnCollisionStay(Collision collision)
     {
-        isGrounded = true;
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            if (contact.normal.y > 0.5f)
+            {
+                touchingGround = true;
+                return;
+            }
+        }
     }
 
     private void ReadMovementInput()
@@ -110,7 +114,19 @@ public class PLayer : MonoBehaviour
     }
 
 
-     public void SetSpawnPoint(Vector3 position)
+    private void ApplyJump()
+    {
+        if (!jumpRequested) return;
+        jumpRequested = false;
+        Vector3 velocity = rb.linearVelocity;
+        velocity.y = 0f;
+        rb.linearVelocity = velocity;
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
+    }
+
+
+
+    public void SetSpawnPoint(Vector3 position)
     {
         respawnPoint = position;
     }
@@ -120,11 +136,9 @@ public class PLayer : MonoBehaviour
         if (isRespawning) return;
         isRespawning = true;
 
-        Debug.Log($"[PLayer] Die() llamado en '{name}' (instance ID {GetInstanceID()}). Respawneando en: {respawnPoint}");
-
         rb.linearVelocity = Vector3.zero;
         rb.position = respawnPoint;
-        transform.position = GameManagger.Instance.currentSpawnPoint;
+        transform.position = respawnPoint;
         Physics.SyncTransforms();
  
         Invoke(nameof(ClearRespawnGuard), respawnGuardTime);
